@@ -8,6 +8,7 @@ interface Location {
   tz_id: string;
   localtime_epoch: number;
   localtime: string;
+  url: string;
 }
 
 export default Location;
