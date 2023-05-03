@@ -9,9 +9,9 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === 'GET') {
     try {
-      const city = req.query.city as string;
+      const query = req.query.query as string;
 
-      const response = await httpClient.search(city);
+      const response = await httpClient.search(query);
 
       if (response.status >= 200 && response.status < 300) {
         res.json(response.data);
