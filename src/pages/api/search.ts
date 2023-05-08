@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Error from 'models/Error';
-import * as httpClient from 'http/client';
+import * as weatherAPI from 'http/weatherAPI';
+import Location from 'models/Location';
 
 const handler = async (
   req: NextApiRequest,
@@ -9,9 +10,13 @@ const handler = async (
 ): Promise<void> => {
   if (req.method === 'GET') {
     try {
+      if (req.query.query === undefined) {
+        return res.status(400).json({ error: 'Invalid params.' });
+      }
+
       const query = req.query.query as string;
 
-      const response = await httpClient.search(query);
+      const response = await weatherAPI.search(query);
 
       if (response.status >= 200 && response.status < 300) {
         res.json(response.data);
