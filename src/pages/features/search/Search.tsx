@@ -55,11 +55,14 @@ const Search = ({ sx = [] }: SearchProps): JSX.Element => {
     [dispatch, delayedQuery]
   );
 
-  const handleKeyDown = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter') {
-      event.defaultPrevented = true;
-    }
-  }, []);
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'Enter' && options.length === 0) {
+        event.stopPropagation();
+      }
+    },
+    [options]
+  );
 
   return (
     <Autocomplete
