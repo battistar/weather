@@ -28,7 +28,7 @@ export const fetchOptions = createAsyncThunk(
   }
 );
 
-const counterSlice = createSlice({
+const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
@@ -63,7 +63,7 @@ const counterSlice = createSlice({
   },
 });
 
-export const { setSearch, setSearchInput, reset } = counterSlice.actions;
+export const { setSearch, setSearchInput, reset } = searchSlice.actions;
 
 export const selectSearch = (state: RootState): typeof state.search.value => state.search.value;
 
@@ -75,4 +75,4 @@ export const selectStatus = (state: RootState): typeof state.search.status => st
 
 export const selectError = (state: RootState): typeof state.search.error => state.search.error;
 
-export default counterSlice.reducer;
+export default searchSlice.reducer;
