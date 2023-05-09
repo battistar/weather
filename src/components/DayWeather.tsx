@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
   return (
-    <Stack sx={{ px: 2, border: (theme) => `1px solid ${theme.palette.grey[400]}`, borderRadius: 1 }}>
+    <Stack sx={{ px: 2, border: (theme) => `1px solid ${theme.palette.grey[400]}`, borderRadius: 4 }}>
       {forecast.forecast.forecastday.map((forecastDay, index) => {
         return (
           <Grid container key={forecastDay.date_epoch} gap={1} sx={{ alignItems: 'center' }}>

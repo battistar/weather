@@ -73,7 +73,8 @@ const Search = ({ sx = [] }: SearchProps): JSX.Element => {
       renderInput={(params): JSX.Element => (
         <TextField
           {...params}
-          label="City"
+          hiddenLabel
+          placeholder="City"
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -85,6 +86,22 @@ const Search = ({ sx = [] }: SearchProps): JSX.Element => {
             ),
           }}
           onKeyDown={handleKeyDown}
+          sx={{
+            '& .MuiInputBase-root': {
+              borderRadius: 4,
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                border: (theme) => `1px solid ${theme.palette.grey[400]}`,
+              },
+              '&:hover fieldset': {
+                border: (theme) => `1px solid ${theme.palette.grey[400]}`,
+              },
+              '&.Mui-focused fieldset': {
+                border: (theme) => `1px solid ${theme.palette.grey[400]}`,
+              },
+            },
+          }}
         />
       )}
     />

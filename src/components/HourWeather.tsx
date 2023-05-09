@@ -14,8 +14,8 @@ const formatHours = (hour: number): string => {
 
 const HourWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
   return (
-    <Box sx={{ p: 1, border: (theme) => `1px solid ${theme.palette.grey[400]}`, borderRadius: 1 }}>
-      <Stack direction="row" sx={{ overflow: 'auto', pb: 1 }}>
+    <Box sx={{ p: 1, border: (theme) => `1px solid ${theme.palette.grey[400]}`, borderRadius: 4 }}>
+      <Stack direction="row" gap={1} sx={{ overflow: 'auto', pb: 1 }}>
         {forecast.forecast.forecastday[0].hour.map((hour) => {
           return (
             <Stack key={hour.time_epoch} sx={{ alignItems: 'center' }}>
