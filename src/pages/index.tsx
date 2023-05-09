@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Search from './features/search/Search';
 import { Box, Container, Stack } from '@mui/material';
 import Forecast from './features/forecast/Forecast';
+import Footer from 'components/Footer';
 
 const Home = (): JSX.Element => {
   return (
@@ -12,13 +13,14 @@ const Home = (): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box sx={{ height: '100vh', display: 'flex' }}>
+      <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Container maxWidth="sm" component="main" sx={{ flex: 1 }}>
           <Stack spacing={3} sx={{ mt: 2, height: '100%' }}>
             <Search />
             <Forecast />
           </Stack>
         </Container>
+        <Footer />
       </Box>
     </>
   );
