@@ -15,11 +15,24 @@ const initialState: ForecastState = {
   error: null,
 };
 
-export const fetchForecast = createAsyncThunk('search/fetchForecast', async (city: string): Promise<Forecast> => {
-  const response = await client.forecast(city);
+export const fetchForecastByCity = createAsyncThunk(
+  'forecast/fetchForecastByCity',
+  async (city: string): Promise<Forecast> => {
+    const response = await client.forecastByCity(city);
 
-  return response.data;
-});
+    return response.data;
+  }
+);
+
+export const fetchForecastByCoordinates = createAsyncThunk(
+  'forecast/fetchForecastByCoordinates',
+  async (coordinates: { latitude: number; longitude: number }): Promise<Forecast> => {
+    const { latitude, longitude } = coordinates;
+    const response = await client.forecastByCoordinates(latitude, longitude);
+
+    return response.data;
+  }
+);
 
 const forecastSlice = createSlice({
   name: 'forecast',
@@ -27,15 +40,29 @@ const forecastSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchForecast.pending, (state) => {
+      .addCase(fetchForecastByCity.pending, (state) => {
         state.error = null;
         state.status = 'loading';
       })
-      .addCase(fetchForecast.fulfilled, (state, action) => {
+      .addCase(fetchForecastByCity.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.forecast = action.payload;
       })
-      .addCase(fetchForecast.rejected, (state, action) => {
+      .addCase(fetchForecastByCity.rejected, (state, action) => {
+        state.status = 'failed';
+        if (action.error.message) {
+          state.error = action.error.message;
+        }
+      })
+      .addCase(fetchForecastByCoordinates.pending, (state) => {
+        state.error = null;
+        state.status = 'loading';
+      })
+      .addCase(fetchForecastByCoordinates.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.forecast = action.payload;
+      })
+      .addCase(fetchForecastByCoordinates.rejected, (state, action) => {
         state.status = 'failed';
         if (action.error.message) {
           state.error = action.error.message;

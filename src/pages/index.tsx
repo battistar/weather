@@ -3,8 +3,24 @@ import Search from './features/search/Search';
 import { Box, Container, Stack } from '@mui/material';
 import Forecast from './features/forecast/Forecast';
 import Footer from 'components/Footer';
+import { useEffect } from 'react';
+import { useAppDispatch } from './app/hook';
+import { fetchForecastByCoordinates } from './features/forecast/forecastSlice';
 
 const Home = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coordinates = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+
+      dispatch(fetchForecastByCoordinates(coordinates));
+    });
+  });
+
   return (
     <>
       <Head>

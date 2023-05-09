@@ -12,7 +12,7 @@ import {
 } from './searchSlice';
 import { debounce } from 'lodash';
 import { KeyboardEvent, useCallback, useRef } from 'react';
-import { fetchForecast } from '../forecast/forecastSlice';
+import { fetchForecastByCity } from '../forecast/forecastSlice';
 
 interface SearchProps {
   sx?: SxProps<Theme>;
@@ -35,7 +35,7 @@ const Search = ({ sx = [] }: SearchProps): JSX.Element => {
     (value: string | null): void => {
       if (value !== null) {
         dispatch(setSearch(value));
-        dispatch(fetchForecast(value));
+        dispatch(fetchForecastByCity(value));
       }
     },
     [dispatch]
