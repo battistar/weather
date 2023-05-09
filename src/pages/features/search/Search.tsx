@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, CircularProgress } from '@mui/material';
+import { Autocomplete, TextField, CircularProgress, SxProps, Theme } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'pages/app/hook';
 import {
   fetchOptions,
@@ -11,9 +11,14 @@ import {
   setSearchInput,
 } from './searchSlice';
 import { debounce } from 'lodash';
-import { useCallback, useRef } from 'react';
+import { KeyboardEvent, useCallback, useRef } from 'react';
+import { fetchForecast } from '../forecast/forecastSlice';
 
-const Search = (): JSX.Element => {
+interface SearchProps {
+  sx?: SxProps<Theme>;
+}
+
+const Search = ({ sx = [] }: SearchProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const value = useAppSelector(selectSearch);
   const inputValue = useAppSelector(selectSearchInput);
@@ -30,6 +35,7 @@ const Search = (): JSX.Element => {
     (value: string | null): void => {
       if (value !== null) {
         dispatch(setSearch(value));
+        dispatch(fetchForecast(value));
       }
     },
     [dispatch]
@@ -49,8 +55,15 @@ const Search = (): JSX.Element => {
     [dispatch, delayedQuery]
   );
 
+  const handleKeyDown = useCallback((event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      event.defaultPrevented = true;
+    }
+  }, []);
+
   return (
     <Autocomplete
+      sx={[...(Array.isArray(sx) ? sx : [sx])]}
       freeSolo
       value={value}
       onChange={(_event, value): void => handleChange(value)}
@@ -60,7 +73,7 @@ const Search = (): JSX.Element => {
       renderInput={(params): JSX.Element => (
         <TextField
           {...params}
-          label="Search input"
+          label="City"
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -71,6 +84,7 @@ const Search = (): JSX.Element => {
               </>
             ),
           }}
+          onKeyDown={handleKeyDown}
         />
       )}
     />

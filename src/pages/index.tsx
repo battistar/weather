@@ -1,5 +1,7 @@
 import Head from 'next/head';
-import Search from './features/search/search';
+import Search from './features/search/Search';
+import { Box, Container, Stack } from '@mui/material';
+import Forecast from './features/forecast/Forecast';
 
 const Home = (): JSX.Element => {
   return (
@@ -10,9 +12,14 @@ const Home = (): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <Search />
-      </main>
+      <Box sx={{ height: '100vh', display: 'flex' }}>
+        <Container maxWidth="sm" component="main" sx={{ flex: 1 }}>
+          <Stack spacing={3} sx={{ mt: 2, height: '100%' }}>
+            <Search />
+            <Forecast />
+          </Stack>
+        </Container>
+      </Box>
     </>
   );
 };

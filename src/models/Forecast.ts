@@ -1,3 +1,5 @@
+import Location from './Location';
+
 interface Day {
   maxtemp_c: number;
   maxtemp_f: number;
@@ -98,7 +100,7 @@ interface Current {
   wind_mph: number;
   wind_kph: number;
   wind_degree: number;
-  wind_dir: 'E';
+  wind_dir: string;
   pressure_mb: number;
   pressure_in: number;
   precip_mm: number;
