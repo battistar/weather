@@ -3,9 +3,9 @@ import { Box, Container, Stack } from '@mui/material';
 import Footer from 'components/Footer';
 import { useEffect } from 'react';
 import { useAppDispatch } from 'app/hook';
-import { Search } from '@mui/icons-material';
 import { fetchForecastByCoordinates } from 'features/forecast/forecastSlice';
 import Forecast from 'features/forecast/Forecast';
+import Search from 'features/search/Search';
 
 const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();

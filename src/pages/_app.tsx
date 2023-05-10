@@ -3,9 +3,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { CssBaseline } from '@mui/material';
+import store from 'app/store';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-import store from './app/store';
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
