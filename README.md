@@ -2,6 +2,8 @@
 
 Weather is a simple weather forecast app built with NextJS and powered by [WeatherAPI.com](https://www.weatherapi.com/) API's.
 
+The app is available on [https://weather-6hxd97qhk-battistar.vercel.app/](https://weather-6hxd97qhk-battistar.vercel.app/).
+
 ## Development
 
 You can setup and run the application in your local environment in different ways:
