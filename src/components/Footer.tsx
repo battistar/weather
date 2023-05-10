@@ -14,7 +14,7 @@ const Footer = (): JSX.Element => {
   return (
     <Stack
       direction="row"
-      sx={{ justifyContent: 'space-between', p: 1, backgroundColor: (theme) => theme.palette.grey[200] }}
+      sx={{ justifyContent: 'space-between', p: 1, mt: 3, backgroundColor: (theme) => theme.palette.grey[200] }}
     >
       <Typography variant="body2" component="div">
         © {date} Samuele Battistella
