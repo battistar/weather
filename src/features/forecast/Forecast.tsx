@@ -2,7 +2,7 @@ import { Box, CircularProgress, Stack } from '@mui/material';
 import CurrentWather from 'components/CurrentWeather';
 import DayWeather from 'components/DayWeather';
 import HourWeather from 'components/HourWeather';
-import { useAppSelector } from 'pages/app/hook';
+import { useAppSelector } from 'app/hook';
 import { selectForecast, selectStatus } from './forecastSlice';
 
 const Forecast = (): JSX.Element => {

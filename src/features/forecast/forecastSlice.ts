@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from 'pages/app/store';
+import { RootState } from 'app/store';
 import * as client from 'http/client';
 import Forecast from 'models/Forecast';
 

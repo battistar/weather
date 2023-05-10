@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchReducer from '../features/search/searchSlice';
-import forecastSlice from 'pages/features/forecast/forecastSlice';
+import searchReducer from 'features/search/searchSlice';
+import forecastSlice from 'features/forecast/forecastSlice';
 
 const store = configureStore({
   reducer: {

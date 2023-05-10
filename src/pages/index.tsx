@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import Search from './features/search/Search';
 import { Box, Container, Stack } from '@mui/material';
-import Forecast from './features/forecast/Forecast';
 import Footer from 'components/Footer';
 import { useEffect } from 'react';
-import { useAppDispatch } from './app/hook';
-import { fetchForecastByCoordinates } from './features/forecast/forecastSlice';
+import { useAppDispatch } from 'app/hook';
+import { Search } from '@mui/icons-material';
+import { fetchForecastByCoordinates } from 'features/forecast/forecastSlice';
+import Forecast from 'features/forecast/Forecast';
 
 const Home = (): JSX.Element => {
   const dispatch = useAppDispatch();
