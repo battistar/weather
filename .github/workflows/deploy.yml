@@ -34,9 +34,6 @@ jobs:
       - name: Linter check
         run: npx eslint "src/**/*/*.{ts,tsx}"
 
-      - name: Build
-        run: npm run build
-
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
