@@ -4,12 +4,9 @@ import Image from 'next/image';
 
 // iOS fix
 const dateFromISO = (isoDate: string): Date => {
-  const strParams = isoDate.split(/[- :]/);
-  const numParams = strParams.map((p) => {
-    return parseInt(p);
-  });
+  const fixedISODate = isoDate.replace(' ', 'T');
 
-  return new Date(numParams[0], numParams[1] - 1, numParams[2], numParams[3], numParams[4]);
+  return new Date(fixedISODate);
 };
 
 const formatHours = (hour: number): string => {
