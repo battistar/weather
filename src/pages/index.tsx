@@ -30,7 +30,7 @@ const Home = (): JSX.Element => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <Container maxWidth="sm" component="main" sx={{ flex: 1, mb: 3 }}>
+        <Container maxWidth="sm" component="main" sx={{ flex: 1, pb: 3 }}>
           <Stack spacing={3} sx={{ mt: 2, height: '100%' }}>
             <Search />
             <Forecast />

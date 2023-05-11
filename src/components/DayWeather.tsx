@@ -22,12 +22,12 @@ const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
               />
             </Grid>
             <Grid item xs>
-              <Typography variant="body1" component="div">
+              <Typography variant="body1" component="div" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                 MAX: {forecastDay.day.maxtemp_c}°
               </Typography>
             </Grid>
             <Grid item xs>
-              <Typography variant="body1" component="div">
+              <Typography variant="body1" component="div" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                 MIN: {forecastDay.day.mintemp_c}°
               </Typography>
             </Grid>
