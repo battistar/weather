@@ -14,6 +14,7 @@ const Footer = (): JSX.Element => {
   return (
     <Stack
       direction="row"
+      component="footer"
       sx={{ justifyContent: 'space-between', p: 1, backgroundColor: (theme) => theme.palette.grey[200] }}
     >
       <Typography variant="body2" component="div">
