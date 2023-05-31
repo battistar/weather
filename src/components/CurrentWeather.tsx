@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const CurrentWather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
   return (
-    <Stack sx={{ alignItems: 'center' }}>
+    <Stack gap={1} sx={{ alignItems: 'center' }}>
       <Typography variant="h4" component="div">
         {forecast.location.name}
       </Typography>
