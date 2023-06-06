@@ -1,23 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import Forecast from 'models/Forecast';
 import Image from 'next/image';
-
-// iOS fix
-const dateFromISO = (isoDate: string): Date => {
-  const fixedISODate = isoDate.replace(' ', 'T');
-
-  return new Date(fixedISODate);
-};
-
-const formatHours = (hour: number): string => {
-  const currentHour = new Date().getHours();
-
-  if (hour === currentHour) {
-    return 'Now';
-  } else {
-    return ('0' + hour).slice(-2);
-  }
-};
+import { getHoursFromISO } from 'utils/time';
 
 const HourWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
   return (
@@ -27,7 +11,7 @@ const HourWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
           return (
             <Stack key={hour.time_epoch} sx={{ alignItems: 'center' }}>
               <Typography variant="body1" component="div">
-                {formatHours(dateFromISO(hour.time).getHours())}
+                {getHoursFromISO(hour.time, true)}
               </Typography>
               <Image src={`https:${hour.condition.icon}`} alt={hour.condition.text} width={64} height={64} />
               <Typography variant="body1" component="div">
