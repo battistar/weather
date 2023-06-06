@@ -1,13 +1,38 @@
 import { Grid, Stack, Typography } from '@mui/material';
 import Forecast from 'models/Forecast';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 
 const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
+  const router = useRouter();
+
+  const handleClick = useCallback(
+    (date: string) => () => {
+      router.push(`details?date=${date}`);
+    },
+    [router]
+  );
+
   return (
-    <Stack sx={{ px: 2, border: (theme) => `1px solid ${theme.palette.grey[400]}`, borderRadius: 4 }}>
+    <Stack sx={{ border: (theme) => `1px solid ${theme.palette.grey[400]}`, borderRadius: 4, overflow: 'clip' }}>
       {forecast.forecast.forecastday.map((forecastDay, index) => {
         return (
-          <Grid container key={forecastDay.date_epoch} gap={1} sx={{ alignItems: 'center' }}>
+          <Grid
+            container
+            key={forecastDay.date_epoch}
+            gap={1}
+            onClick={handleClick(forecastDay.date)}
+            sx={{
+              px: 2,
+              alignItems: 'center',
+              cursor: 'pointer',
+              '&:hover': {
+                background: (theme) =>
+                  theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100],
+              },
+            }}
+          >
             <Grid item xs>
               <Typography variant="body1" component="div">
                 {index === 0 ? 'Today' : new Date(forecastDay.date).toLocaleDateString('en-US', { weekday: 'long' })}

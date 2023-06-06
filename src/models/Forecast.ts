@@ -1,6 +1,6 @@
 import Location from './Location';
 
-interface Day {
+export interface Day {
   maxtemp_c: number;
   maxtemp_f: number;
   mintemp_c: number;
@@ -27,7 +27,7 @@ interface Day {
   uv: number;
 }
 
-interface Astro {
+export interface Astro {
   sunrise: string;
   sunset: string;
   moonrise: string;
@@ -38,7 +38,7 @@ interface Astro {
   is_sun_up: number;
 }
 
-interface Hour {
+export interface Hour {
   time_epoch: number;
   time: string;
   temp_c: number;
@@ -52,7 +52,7 @@ interface Hour {
   wind_mph: number;
   wind_kph: number;
   wind_degree: number;
-  wind_dir: 'E';
+  wind_dir: string;
   pressure_mb: number;
   pressure_in: number;
   precip_mm: number;
@@ -78,7 +78,7 @@ interface Hour {
   uv: number;
 }
 
-interface ForecastDay {
+export interface ForecastDay {
   date: string;
   date_epoch: number;
   day: Day;

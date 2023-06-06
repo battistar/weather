@@ -3,10 +3,14 @@ import { RootState } from 'store/store';
 import * as client from 'http/client';
 import Forecast from 'models/Forecast';
 
+type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
+
+type Error = string | null;
+
 interface ForecastState {
   forecast: Forecast;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
+  status: Status;
+  error: Error;
 }
 
 const initialState: ForecastState = {
@@ -71,10 +75,10 @@ const forecastSlice = createSlice({
   },
 });
 
-export const selectForecast = (state: RootState): typeof state.forecast.forecast => state.forecast.forecast;
+export const selectForecast = (state: RootState): Forecast => state.forecast.forecast;
 
-export const selectStatus = (state: RootState): typeof state.forecast.status => state.forecast.status;
+export const selectStatus = (state: RootState): Status => state.forecast.status;
 
-export const selectError = (state: RootState): typeof state.forecast.error => state.forecast.error;
+export const selectError = (state: RootState): Error => state.forecast.error;
 
 export default forecastSlice.reducer;
