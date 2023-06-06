@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { ThunkMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import searchReducer from 'features/search/searchSlice';
 import forecastReducer from 'features/forecast/forecastSlice';
@@ -19,7 +19,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk],
+  middleware: [thunk] as [ThunkMiddleware],
 });
 
 export type RootState = ReturnType<typeof store.getState>;
