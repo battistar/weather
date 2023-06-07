@@ -18,6 +18,7 @@ import { useMemo } from 'react';
 import { useAppSelector } from 'store/hook';
 import { getHoursFromISO } from 'utils/time';
 import Footer from 'components/Footer';
+import { isBrowser } from 'react-device-detect';
 
 const Details = (): JSX.Element => {
   const searchParams = useSearchParams();
@@ -53,8 +54,8 @@ const Details = (): JSX.Element => {
           </Stack>
         </Stack>
 
-        <TableContainer sx={{ overflowX: 'initial' }}>
-          <Table stickyHeader>
+        <TableContainer>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell align="center">Hour</TableCell>
@@ -70,7 +71,11 @@ const Details = (): JSX.Element => {
             <TableBody>
               {forecastDay.hour.map((hour) => {
                 return (
-                  <TableRow key={hour.time_epoch} hover>
+                  <TableRow
+                    key={hour.time_epoch}
+                    hover={isBrowser}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
                     <TableCell align="center">{getHoursFromISO(hour.time)}</TableCell>
                     <TableCell align="center">
                       <Image src={`https:${hour.condition.icon}`} alt={hour.condition.text} width={64} height={64} />
