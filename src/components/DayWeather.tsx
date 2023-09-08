@@ -30,7 +30,7 @@ const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
               alignItems: 'center',
               cursor: 'pointer',
               '&:hover': {
-                background: xs
+                background: !xs
                   ? (theme): string =>
                       theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100]
                   : 'none',
