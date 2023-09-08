@@ -9,7 +9,17 @@ const HourWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
       <Stack direction="row" gap={1} sx={{ overflow: 'auto', pb: 1 }}>
         {forecast.forecast.forecastday[0].hour.map((hour) => {
           return (
-            <Stack key={hour.time_epoch} sx={{ alignItems: 'center' }}>
+            <Stack
+              key={hour.time_epoch}
+              sx={{
+                alignItems: 'center',
+                backgroundColor: (theme) =>
+                  new Date().getHours() === new Date(hour.time).getHours()
+                    ? theme.palette.action.selected
+                    : 'transparent',
+                borderRadius: 2,
+              }}
+            >
               <Typography variant="body1" component="div">
                 {getHoursFromISO(hour.time, true)}
               </Typography>
