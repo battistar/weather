@@ -1,12 +1,13 @@
-import { Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Forecast from 'models/Forecast';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
-import { isBrowser } from 'react-device-detect';
 
 const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
   const router = useRouter();
+  const theme = useTheme();
+  const xs = useMediaQuery(theme.breakpoints.only('xs'));
 
   const handleClick = useCallback(
     (city: string, date: string) => () => {
@@ -29,7 +30,7 @@ const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
               alignItems: 'center',
               cursor: 'pointer',
               '&:hover': {
-                background: isBrowser
+                background: xs
                   ? (theme): string =>
                       theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100]
                   : 'none',
