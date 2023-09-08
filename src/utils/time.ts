@@ -12,6 +12,6 @@ export const getHoursFromISO = (isoDate: string, now = false): string => {
   if (hour === currentHour && now) {
     return 'Now';
   } else {
-    return ('0' + hour).slice(-2);
+    return `${('0' + hour).slice(-2)}:00`;
   }
 };
