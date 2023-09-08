@@ -9,8 +9,8 @@ const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
   const router = useRouter();
 
   const handleClick = useCallback(
-    (date: string) => () => {
-      router.push(`details?date=${date}`);
+    (city: string, date: string) => () => {
+      router.push(`details?city=${city}&date=${date}`);
     },
     [router]
   );
@@ -23,7 +23,7 @@ const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
             container
             key={forecastDay.date_epoch}
             gap={1}
-            onClick={handleClick(forecastDay.date)}
+            onClick={handleClick(forecast.location.name, forecastDay.date)}
             sx={{
               px: 2,
               alignItems: 'center',

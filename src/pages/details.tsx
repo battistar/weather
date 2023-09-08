@@ -11,30 +11,13 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import { selectForecast } from 'features/forecast/forecastSlice';
 import { ForecastDay } from 'models/Forecast';
-import { useSearchParams, notFound } from 'next/navigation';
-import { useMemo } from 'react';
-import { useAppSelector } from 'store/hook';
 import { getHoursFromISO } from 'utils/time';
 import Footer from 'components/Footer';
 import { isBrowser } from 'react-device-detect';
+import * as weatherAPI from 'http/weatherAPI';
 
-const Details = (): JSX.Element => {
-  const searchParams = useSearchParams();
-  const date = searchParams.get('date');
-  const forecast = useAppSelector(selectForecast);
-
-  const forecastDay = useMemo<ForecastDay | undefined>((): ForecastDay | undefined => {
-    return forecast.forecast.forecastday.find((forecastDay) => {
-      return forecastDay.date === date;
-    });
-  }, [forecast, date]);
-
-  if (!forecastDay) {
-    notFound();
-  }
-
+const Details = ({ forecastDay }: { forecastDay: ForecastDay }): JSX.Element => {
   return (
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Container maxWidth="md" component="main" sx={{ flex: 1, my: 3 }}>
@@ -96,6 +79,39 @@ const Details = (): JSX.Element => {
       <Footer />
     </Box>
   );
+};
+
+export const getServerSideProps = async ({
+  query,
+}: {
+  query: {
+    date: string | undefined;
+    city: string | undefined;
+  };
+}): Promise<{ notFound: boolean } | { props: { forecastDay: ForecastDay } }> => {
+  let forecastDay: ForecastDay | undefined;
+
+  if (query.date && query.city) {
+    const response = await weatherAPI.forecastByCity(query.city);
+
+    if (response.status === 200) {
+      forecastDay = response.data.forecast.forecastday.find((forecastDay) => {
+        return forecastDay.date === query.date;
+      });
+
+      if (forecastDay) {
+        return {
+          props: {
+            forecastDay: forecastDay,
+          },
+        };
+      }
+    }
+  }
+
+  return {
+    notFound: true,
+  };
 };
 
 export default Details;
