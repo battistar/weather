@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import { TipsAndUpdates as TipsIcon } from '@mui/icons-material';
 import CurrentWather from 'components/CurrentWeather';
 import DayWeather from 'components/DayWeather';
 import HourWeather from 'components/HourWeather';
@@ -11,18 +12,35 @@ const Forecast = (): JSX.Element => {
 
   return (
     <>
-      {status === 'loading' ? (
+      {status === 'idle' && (
+        <Box
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 1,
+            color: (theme) => theme.palette.text.disabled,
+          }}
+        >
+          <TipsIcon sx={{ width: '100px', height: '100px' }} />
+          <Typography variant="h5" component="div" sx={{ textAlign: 'center' }}>
+            Enable location or search a city to visualize forecast
+          </Typography>
+        </Box>
+      )}
+      {status === 'loading' && (
         <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <CircularProgress />
         </Box>
-      ) : (
-        status === 'succeeded' && (
-          <Stack gap={3}>
-            <CurrentWather forecast={forecast} />
-            <HourWeather forecast={forecast} />
-            <DayWeather forecast={forecast} />
-          </Stack>
-        )
+      )}
+      {status === 'succeeded' && (
+        <Stack gap={3}>
+          <CurrentWather forecast={forecast} />
+          <HourWeather forecast={forecast} />
+          <DayWeather forecast={forecast} />
+        </Stack>
       )}
     </>
   );
