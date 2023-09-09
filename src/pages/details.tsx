@@ -1,4 +1,6 @@
 import {
+  Box,
+  Button,
   Container,
   FormControl,
   InputLabel,
@@ -16,20 +18,23 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { WarningAmber as WarningIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { ForecastDay } from 'models/Forecast';
 import { getHoursFromISO } from 'utils/time';
 import Footer from 'components/Footer';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { fetchForecastByCity, selectForecast } from 'features/forecast/forecastSlice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { isEmpty } from 'lodash';
+import { useRouter } from 'next/router';
 
 type SelectData = 'Temperature' | 'Wind' | 'Precipitation' | 'Humidity' | 'UV';
 
 const Details = (): JSX.Element => {
   const [visualizedData, setVisualizedData] = useState<SelectData>('Temperature');
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const forecast = useAppSelector(selectForecast);
 
@@ -52,13 +57,17 @@ const Details = (): JSX.Element => {
     }
   }, [date, forecast]);
 
-  const handleChangeSelect = (event: SelectChangeEvent): void => {
+  const handleChangeSelect = useCallback((event: SelectChangeEvent): void => {
     setVisualizedData(event.target.value as SelectData);
-  };
+  }, []);
+
+  const handleHomeClick = useCallback(() => {
+    router.push('/');
+  }, [router]);
 
   return (
     <>
-      {forecastDay && (
+      {forecastDay ? (
         <Stack sx={{ height: '100vh' }}>
           <Container maxWidth="md" component="main" sx={{ flex: 1, my: 3 }}>
             <Stack sx={{ gap: 3 }}>
@@ -214,6 +223,29 @@ const Details = (): JSX.Element => {
           </Container>
           <Footer />
         </Stack>
+      ) : (
+        <Box
+          sx={{
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 2,
+            color: (theme) => theme.palette.text.disabled,
+          }}
+        >
+          <WarningIcon sx={{ width: '100px', height: '100px' }} />
+          <Typography variant="h4" component="div" sx={{ textAlign: 'center' }}>
+            Forecast data not found
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ textAlign: 'center' }}>
+            Forecast data not found. City or data could be wrong, or maybe server could be unreachable.
+          </Typography>
+          <Button variant="contained" onClick={handleHomeClick}>
+            Home
+          </Button>
+        </Box>
       )}
     </>
   );
