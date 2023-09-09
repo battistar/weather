@@ -24,7 +24,7 @@ import { ForecastDay } from 'models/Forecast';
 import { getHoursFromISO } from 'utils/time';
 import Footer from 'components/Footer';
 import { useCallback, useMemo, useState } from 'react';
-import { fetchForecastByCity, selectForecast } from 'features/forecast/forecastSlice';
+import { fetchForecastByCity, selectForecast, selectStatus } from 'features/forecast/forecastSlice';
 import { useAppDispatch, useAppSelector } from 'store/hook';
 import { isEmpty } from 'lodash';
 import { useRouter } from 'next/router';
@@ -36,14 +36,15 @@ const Details = (): JSX.Element => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const forecast = useAppSelector(selectForecast);
+  const status = useAppSelector(selectStatus);
 
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
 
-  const city = router.query.city as string;
-  const date = router.query.date as string;
+  const city = router.query.city as string | undefined;
+  const date = router.query.date as string | undefined;
 
-  if (isEmpty(forecast)) {
+  if (isEmpty(forecast) && city) {
     dispatch(fetchForecastByCity(city));
   }
 
@@ -65,7 +66,7 @@ const Details = (): JSX.Element => {
 
   return (
     <>
-      {forecastDay ? (
+      {forecastDay && status === 'succeeded' && (
         <Stack sx={{ height: '100vh' }}>
           <Container maxWidth="md" component="main" sx={{ flex: 1, my: 3 }}>
             <Stack sx={{ gap: 3 }}>
@@ -221,7 +222,8 @@ const Details = (): JSX.Element => {
           </Container>
           <Footer />
         </Stack>
-      ) : (
+      )}
+      {status === 'failed' && (
         <Box
           sx={{
             height: '100vh',
