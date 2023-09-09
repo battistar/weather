@@ -11,7 +11,7 @@ const DayWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
 
   const handleClick = useCallback(
     (city: string, date: string) => () => {
-      router.push(`details?city=${city}&date=${date}`);
+      router.push(`${city}/${date}`);
     },
     [router]
   );

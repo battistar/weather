@@ -20,7 +20,6 @@ import {
 } from '@mui/material';
 import { WarningAmber as WarningIcon } from '@mui/icons-material';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 import { ForecastDay } from 'models/Forecast';
 import { getHoursFromISO } from 'utils/time';
 import Footer from 'components/Footer';
@@ -41,9 +40,8 @@ const Details = (): JSX.Element => {
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
 
-  const searchParams = useSearchParams();
-  const city = searchParams.get('city') as string;
-  const date = searchParams.get('date') as string;
+  const city = router.query.city as string;
+  const date = router.query.date as string;
 
   if (isEmpty(forecast)) {
     dispatch(fetchForecastByCity(city));
@@ -249,25 +247,6 @@ const Details = (): JSX.Element => {
       )}
     </>
   );
-};
-
-export const getServerSideProps = async ({
-  query,
-}: {
-  query: {
-    date: string | undefined;
-    city: string | undefined;
-  };
-}): Promise<{ notFound: boolean } | { props: unknown }> => {
-  if (!query.date || !query.city) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: {},
-  };
 };
 
 export default Details;
