@@ -21,7 +21,7 @@ const HourWeather = ({ forecast }: { forecast: Forecast }): JSX.Element => {
               }}
             >
               <Typography variant="body1" component="div">
-                {getHoursFromISO(hour.time, true)}
+                {getHoursFromISO(hour.time)}
               </Typography>
               <Image src={`https:${hour.condition.icon}`} alt={hour.condition.text} width={64} height={64} />
               <Typography variant="body1" component="div">
