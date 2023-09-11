@@ -21,7 +21,7 @@ import {
 import { WarningAmber as WarningIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import { ForecastDay } from 'models/Forecast';
-import { getHoursFromISO } from 'utils/time';
+import { getHoursFromISO, isCurrentDay, isCurrentHour } from 'utils/time';
 import Footer from 'components/Footer';
 import { useCallback, useMemo, useState } from 'react';
 import { fetchForecastByCity, selectForecast, selectStatus } from 'features/forecast/forecastSlice';
@@ -195,7 +195,7 @@ const Details = (): JSX.Element => {
                           <TableRow
                             key={hour.time_epoch}
                             hover={true}
-                            selected={new Date().getHours() === new Date(hour.time).getHours()}
+                            selected={isCurrentDay(hour.time) && isCurrentHour(hour.time)}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                           >
                             <TableCell>{getHoursFromISO(hour.time)}</TableCell>
